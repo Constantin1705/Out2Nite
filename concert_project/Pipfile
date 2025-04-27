@@ -11,6 +11,7 @@ django-cors-headers = "*"
 django-import-export = "*"
 pillow = "*"
 requests = "*"
+gunicorn = "*"
 
 [dev-packages]
 
