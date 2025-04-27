@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: out2nite-backend
+    env: python
+    plan: free
+    buildCommand: ./build.sh
+    startCommand: pipenv run python manage.py migrate && pipenv run gunicorn concert_project.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: concert_project.settings
+      - key: PYTHON_VERSION
+        value: 3.11
