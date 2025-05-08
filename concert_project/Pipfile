@@ -12,6 +12,7 @@ pillow = "*"
 requests = "*"
 gunicorn = "*"
 djangorestframework-simplejwt = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
