@@ -1,0 +1,56 @@
+# Redirect all HTTP to HTTPS
+server {
+    if ($host = out2nite.eu) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    server_name out2nite.eu www.out2nite.eu;
+    return 301 https://out2nite.eu$request_uri;
+
+
+}
+
+# Redirect www to non-www on HTTPS
+server {
+    listen 443 ssl;
+    server_name www.out2nite.eu;
+
+    ssl_certificate /etc/letsencrypt/live/out2nite.eu/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/out2nite.eu/privkey.pem;
+
+    return 301 https://out2nite.eu$request_uri;
+}
+
+# Main HTTPS server for out2nite.eu
+server {
+    listen 443 ssl;
+    server_name out2nite.eu;
+    ssl_certificate /etc/letsencrypt/live/out2nite.eu-0001/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/out2nite.eu-0001/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    # API proxy to Gunicorn
+    location /api/ {
+        proxy_pass http://127.0.0.1:8000/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Serve Quasar frontend
+    location / {
+        root /var/www/out2nite;
+        index index.html;
+        try_files $uri $uri/ /index.html;
+    }
+    location /staticfile/ {
+        alias /root/Out2Nite/concert-project/staticfiles/;    
+    }
+    location /media/ {
+        alias /root/Out2Nite/concert-project/media/;
+    }
+}

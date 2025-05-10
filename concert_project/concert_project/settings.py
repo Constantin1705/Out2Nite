@@ -25,10 +25,10 @@ load_dotenv(".env")
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG") == "True"
+DEBUG = os.getenv("DEBUG","False") == "True"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
-
+print(SECRET_KEY,DEBUG,ALLOWED_HOSTS)
 
 # Application definition
 
@@ -107,6 +107,24 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGGING = {
+        'version':1,
+        'handlers':{
+            'file':{
+                'level':'ERROR',
+                'class':'logging.FileHandler',
+                'filename':'/tmp/django_errors.log',
+                },
+            },
+        'loggers':{
+            'django':{
+                'handlers':['file'],
+                'level':'ERROR',
+                'propagate':True,
+                },
+            },
+        }
 
 
 # Internationalization
