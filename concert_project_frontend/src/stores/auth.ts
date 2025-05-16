@@ -1,47 +1,63 @@
 import { defineStore } from 'pinia'
 import { api } from 'boot/axios'
-import type { User } from '../types/User'
+import type { User } from 'src/types/User'
+import type { AxiosError } from 'axios'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    accessToken: null as string | null,
     user: null as User | null,
+    isAuthenticated: false,
+    loaded: false
   }),
 
   actions: {
     async login(username: string, password: string) {
       try {
-        const response = await api.post('/api/auth/login/', {
-          username,
-          password,
-        });
-
-        this.accessToken = response.data.access;
-        if (this.accessToken) {
-          localStorage.setItem('access_token', this.accessToken);
-        }
-
-        api.defaults.headers.common['Authorization'] = `Bearer ${this.accessToken}`;
-        await this.fetchUser();
+        await api.post('/api/auth/login/', { username, password })
+        await this.fetchUser()
       } catch (err) {
-        console.error('Login failed', err);
+        console.error('Login failed', err)
+      }
+    },
+
+    async register(username: string, email: string, password: string) {
+      try {
+        await api.post('/api/auth/register/', { username, email, password })
+        await this.fetchUser()
+      } catch (err) {
+        console.error('Register failed', err)
       }
     },
 
     async fetchUser() {
-      try {
-        const response = await api.get('/api/auth/me/');
-        this.user = response.data;
-      } catch (err) {
-        console.error('Fetch user failed', err);
-      }
-    },
+       if (this.loaded) return
+  this.loaded = true
 
-    logout() {
-      this.accessToken = null;
-      this.user = null;
-      localStorage.removeItem('access_token');
-      delete api.defaults.headers.common['Authorization'];
-    },
+  try {
+    const response = await api.get('/api/auth/me/')
+    this.user = response.data
+    this.isAuthenticated = true
+  } catch (err) {
+  const error = err as AxiosError
+  if (error.response?.status === 401) {
+    console.warn('User not authenticated')
+  } else {
+    console.error('Fetch user failed', error)
   }
-});
+
+  this.user = null
+  this.isAuthenticated = false
+}
+},
+    async logout() {
+      try {
+        await api.post('/api/auth/logout/')
+      } catch (err) {
+        console.error('Logout failed', err)
+      }
+      this.user = null
+      this.isAuthenticated = false
+      this.loaded = false
+    }
+  }
+})

@@ -26,12 +26,17 @@ const password = ref('')
 const router = useRouter()
 const authStore = useAuthStore()
 
+
 const login = async () => {
   await authStore.login(username.value, password.value)
-  if (authStore.accessToken) {
+  if (authStore.user) {
     await router.push('/map')
   }
 }
+
+
+
+
 
 
 // onMounted(() => {

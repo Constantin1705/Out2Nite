@@ -6,13 +6,13 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
-django-cors-headers = "*"
 django-import-export = "*"
 pillow = "*"
 requests = "*"
 gunicorn = "*"
-djangorestframework-simplejwt = "*"
 python-dotenv = "*"
+djangorestframework-simplejwt = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
