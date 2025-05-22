@@ -1,19 +1,23 @@
 <template>
   <q-layout view="hHh lpR fFf">
+    <!-- Top Navigation Header -->
     <q-header elevated class="bg-primary text-white">
       <q-toolbar>
+
+        <!-- App Title -->
         <q-btn flat dense no-caps to="/" class="q-mr-sm text-white">
           <q-toolbar-title>Out2Nite</q-toolbar-title>
         </q-btn>
 
         <q-space />
 
-        <!-- 🔥 Auth Buttons -->
+        <!-- Authenticated / Guest Actions -->
         <div class="row items-center q-gutter-sm">
           <template v-if="authStore.user">
             <q-btn flat label="Map" to="/map" />
             <q-btn flat label="Logout" @click="handleLogout" />
-            <q-btn flat round dense icon="more_vert" @click="showDrawer = true" />
+            <!-- 🔥 This is your hamburger/drawer trigger -->
+            <q-btn flat round dense icon="menu" show-if-above :disable="drawerTransitioning" @click="showDrawer = !showDrawer" />
           </template>
 
           <template v-else>
@@ -24,11 +28,12 @@
       </q-toolbar>
     </q-header>
 
+    <!-- Router View -->
     <q-page-container>
       <router-view />
     </q-page-container>
 
-    <!-- Mini profile drawer -->
+    <!-- Profile Drawer (Right) -->
     <q-drawer
       v-model="showDrawer"
       side="right"
@@ -38,6 +43,8 @@
     >
       <q-scroll-area class="fit q-pa-md">
         <q-card flat>
+
+          <!-- Profile Avatar and Info -->
           <q-card-section class="q-pa-none q-mb-md">
             <q-avatar size="80px" class="q-mx-auto q-mb-sm">
               <img :src="authStore.user?.profile_picture_url || 'https://cdn.quasar.dev/img/avatar.png'" />
@@ -52,6 +59,7 @@
 
           <q-separator />
 
+          <!-- Genres and Mood -->
           <q-card-section>
             <div class="text-bold q-mb-xs">Favorite Genres</div>
             <q-chip
@@ -74,7 +82,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 import { useRouter } from 'vue-router'
 
@@ -87,4 +95,9 @@ const handleLogout = async () => {
   await router.push('/')
   showDrawer.value = false
 }
+const drawerTransitioning = ref(false)
+watch(showDrawer, () => {
+  drawerTransitioning.value = true
+  setTimeout(() => (drawerTransitioning.value = false), 300) // adjust to match Quasar's transition
+})
 </script>

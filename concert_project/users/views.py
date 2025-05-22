@@ -4,9 +4,12 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from .serializers import UserSerializer, UserProfileSerializer
+
+from .models import Genre, Mood
+from .serializers import GenreSerializer, MoodSerializer, UserSerializer, UserProfileSerializer
 from rest_framework import status
 from .serializers import RegisterSerializer, UserSerializer
+
 
 class CookieLoginView(APIView):
     permission_classes = [AllowAny]
@@ -97,4 +100,54 @@ class RegisterView(APIView):
                 max_age=7 * 24 * 60 * 60
             )
             return res
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            # 🔍 Log and return the error
+            print("REGISTRATION ERRORS:", serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class CheckEmailView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get("email")
+        exists = User.objects.filter(email=email).exists()
+        return Response({"available": not exists})
+
+
+
+class CheckUsernameView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        username = request.data.get("username")
+        exists = User.objects.filter(username=username).exists()
+        return Response({"available": not exists})
+
+
+
+class GenreListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        genres = Genre.objects.all()
+        serializer = GenreSerializer(genres, many=True)
+        return Response(serializer.data)
+
+
+class MoodListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        moods = Mood.objects.all()
+        serializer = MoodSerializer(moods, many=True)
+        return Response(serializer.data)
+
+
+
+class UserProfileDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        profile = request.user.profile
+        serializer = UserProfileSerializer(profile)
+        return Response(serializer.data)

@@ -29,6 +29,7 @@ const authStore = useAuthStore()
 
 const login = async () => {
   await authStore.login(username.value, password.value)
+  // document.location.reload();
   if (authStore.user) {
     await router.push('/map')
   }
