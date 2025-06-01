@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { api } from 'boot/axios'
 import type { User } from 'src/types/User'
 import type { AxiosError } from 'axios'
+// import router from 'src/router'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -36,6 +37,7 @@ export const useAuthStore = defineStore('auth', {
   try {
     const response = await api.get('/api/auth/me/')
     this.user = response.data
+    console.log(this.user)
     this.isAuthenticated = true
   } catch (err) {
   const error = err as AxiosError
