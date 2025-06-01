@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import uuid
 from datetime import timedelta
 from django.utils import timezone
+from django.conf import settings
 
 
 class Genre(models.Model):
@@ -38,7 +39,7 @@ class UserProfile(models.Model):
 
     def get_profile_picture_url(self):
         if self.profile_picture:
-            return self.profile_picture.url
+            return f"{settings.SITE_DOMAIN}{self.profile_picture.url}"
         return 'https://cdn.quasar.dev/img/avatar1.jpg'  # use a static default image
 
     def deactivate_if_expired(self):

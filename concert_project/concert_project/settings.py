@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # 'concerts', 
     'clubs',
     'import_export',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -139,7 +140,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'users.authentication.CookieJWTAuthentication',
-    )
+    ),
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
 }
 
 SIMPLE_JWT = {
@@ -154,3 +158,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:9000",
 ]
 CORS_ALLOW_CREDENTIALS = True
+SITE_DOMAIN = "http://localhost:8000"

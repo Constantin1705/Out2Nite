@@ -4,7 +4,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-
+from django.contrib.auth import get_user_model
+from rest_framework.parsers import MultiPartParser, FormParser
 from .models import Genre, Mood
 from .serializers import GenreSerializer, MoodSerializer, UserSerializer, UserProfileSerializer
 from rest_framework import status
@@ -51,13 +52,6 @@ class LogoutView(APIView):
         return res
 
 
-class UserMeView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
-
 
 class UserProfileMeView(APIView):
     permission_classes = [IsAuthenticated]
@@ -67,29 +61,32 @@ class UserProfileMeView(APIView):
         serializer = UserProfileSerializer(profile)
         return Response(serializer.data)
 
+User = get_user_model()
+
 class RegisterView(APIView):
     permission_classes = [AllowAny]
+    parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
 
-            # Automatically log in the user after registration
+            # Autentificare automată: obține tokenurile JWT
             refresh = RefreshToken.for_user(user)
             res = Response({
                 "user": UserSerializer(user).data,
                 "message": "Registration successful"
             }, status=status.HTTP_201_CREATED)
 
-            # Set JWT tokens as HttpOnly cookies
+            # Setează cookie-uri HttpOnly
             res.set_cookie(
                 key='access',
                 value=str(refresh.access_token),
                 httponly=True,
-                secure=False,  # Set to True with HTTPS
+                secure=False,  # Pune True dacă folosești HTTPS
                 samesite='Lax',
-                max_age=60 * 60
+                max_age=60 * 60  # 1 oră
             )
             res.set_cookie(
                 key='refresh',
@@ -97,13 +94,13 @@ class RegisterView(APIView):
                 httponly=True,
                 secure=False,
                 samesite='Lax',
-                max_age=7 * 24 * 60 * 60
+                max_age=7 * 24 * 60 * 60  # 7 zile
             )
             return res
         else:
-            # 🔍 Log and return the error
             print("REGISTRATION ERRORS:", serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     
 class CheckEmailView(APIView):
     permission_classes = [AllowAny]
@@ -150,4 +147,11 @@ class UserProfileDetailView(APIView):
     def get(self, request):
         profile = request.user.profile
         serializer = UserProfileSerializer(profile)
+        return Response(serializer.data)
+    
+class MeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
         return Response(serializer.data)
