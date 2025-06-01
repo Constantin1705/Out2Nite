@@ -13,7 +13,9 @@ const routes: RouteRecordRaw[] = [
       { path: 'register', component: () => import('pages/RegisterPage.vue') },
       { path: 'test', component: () => import('pages/TestPage.vue') },
       { path: 'test2', component: () => import('pages/TestPage2.vue') },
+      { path: 'testmap', component: () => import('pages/TestMap.vue') },
       { path: 'map', component: () => import('pages/MapPage.vue'), meta: { requiresAuth: true } },
+      { path: 'list', component: () => import('pages/ListPage.vue'), meta: { requiresAuth: true } },
 
 
     ],

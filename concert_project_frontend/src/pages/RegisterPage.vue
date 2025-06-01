@@ -43,10 +43,28 @@
       </q-step>
 
       <!-- Step 3: Mood & Favorite Genres -->
-      <q-step :name="3" title="Preferences" icon="mood">
-        <q-form @submit.prevent="goToNextStep">
-          <q-select v-model="form.mood_for_tonight" :options="moods" label="Your Mood Tonight" option-label="name" option-value="id" />
-          <q-select v-model="form.favorite_genres" :options="genres" label="Favorite Genres" multiple option-label="name" option-value="id" class="q-mt-md" />
+        <q-step :name="3" title="Preferences" icon="mood">
+      <q-form @submit.prevent="goToNextStep">
+        <q-select
+          v-model="form.mood_for_tonight"
+          :options="moods"
+          label="Your Mood Tonight"
+          option-label="name"
+          option-value="id"
+          map-options
+          emit-value
+        />
+          <q-select
+            v-model="form.favorite_genres"
+            :options="genres"
+            label="Favorite Genres"
+            multiple
+            option-label="name"
+            option-value="id"
+            map-options
+            emit-value
+            class="q-mt-md"
+          />
           <div class="text-right q-mt-md">
             <q-btn label="Back" flat @click="step--" />
             <q-btn label="Next" type="submit" color="primary" class="q-ml-sm" />
@@ -208,36 +226,40 @@ async function checkBeforeSubmit() {
 async function submitForm() {
   const payload = new FormData()
 
-  payload.append('email', form.value.email)
-  payload.append('username', form.value.username)
-  payload.append('password', form.value.password)
-  payload.append('nickname', form.value.nickname)
-  payload.append('birth_date', form.value.birth_date)
+payload.append('email', form.value.email)
+payload.append('username', form.value.username)
+payload.append('password', form.value.password)
+payload.append('nickname', form.value.nickname)
+payload.append('birth_date', form.value.birth_date)
 
-  if (form.value.mood_for_tonight) {
-    payload.append('mood_for_tonight', form.value.mood_for_tonight.toString())
+if (form.value.mood_for_tonight !== null) {
+  payload.append('mood_for_tonight', String(Number(form.value.mood_for_tonight)))
+}
+
+form.value.favorite_genres.forEach((genreId) => {
+  const id = Number(genreId)
+  if (!isNaN(id)) {
+    payload.append('favorite_genres', String(id))
   }
+})
 
-  form.value.favorite_genres.forEach((genreId: number) => {
-    payload.append('favorite_genres', genreId.toString())
-  })
-
-  if (form.value.profile_picture) {
-    if (isUsingDefaultAvatar.value) {
-      payload.append('profile_picture_url', form.value.profile_picture)
-    } else {
-      payload.append('profile_picture', form.value.profile_picture)
-    }
+if (form.value.profile_picture) {
+  if (isUsingDefaultAvatar.value && typeof form.value.profile_picture === 'string') {
+    // dacă e un URL (default avatar)
+    payload.append('profile_picture_url', form.value.profile_picture)
+  } else if (form.value.profile_picture instanceof File) {
+    payload.append('profile_picture', form.value.profile_picture)
   }
+}
 
-  try {
-    await api.post('/api/auth/register/', payload)
-    await router.push({ path: '/map' })
-  } catch (e) {
-    console.error(e)
-  } finally {
-    loading.value = false
-  }
+try {
+  await api.post('/api/auth/register/', payload)
+  await router.push({ path: '/map' })
+} catch (e) {
+  console.error('Registration failed:', e)
+} finally {
+  loading.value = false
+}
 }
 
 const passwordRules = [
