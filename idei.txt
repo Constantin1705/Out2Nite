@@ -1,0 +1,100 @@
+zona de ai unde sa vorbeasca cu userul(gen party-uri care se dau)
+zona de reamintit de niste party-uri
+review client(1-5 stele) -> gen daca se bate este agresi etc
+review personal(barman)
+zona in care apar reduceri(spre exemplu tryp.com) sa imi zica/notifice ca sunt reduceri
+category de party,loc de mancat, loc de baut-> cde se ofera si cat
+locuri cu dress code
+locuri cu petreceri cu tematici
+loc pentru reduceri femei/barbati/studenti
+plasarea in spatiu(cat de aproape sunt de mine)
+locuri care ofera transport(catre casa)
+petrecere intr-o [etrecere]
+ai sa te localizeze si sa ti le dea pe cele mai aproape
+pe baza preferintelor respective sa in sugereze(un fel de test de personalitate)
+zona de conversatie intre useri(modalitatea de block, securitate,acceptare/refuz conversatie)
+posibilitate de share a locatiei pentru prieteni/politie
+daca vrei sa pleci de la party si poti sa iti dea direct access catre bolt/uber
+rezervare/cumparare pentru chestii safe(protectie pahar pentru chestii gen dorguri)
+rezervare/cumparare bilet catre un anumit party/eveniment
+tematica aplicatie(sa aiba tematica->roz,mov,)
+sa ai zona de review-uri si sa poti sa pui poze si sa dai review-uri
+sa ai meniu online
+zona de integrare card + schimb valutar
+party care au zona de concerte(cum este hardrock caffe) sau cum sunt cfoncertele in sine
+bonusuri(reduceri sau produse) ->stil coins
+access live la camerele de filmat(zona de stage)-> contracost
+hang out cu alti useri si sa pui daca vrei relatii,ons, sau doar prieteni
+george ->statistica cheltuieli
+statistica petreceri unde mergi cel mai des 
+postare gen instagram
+daca e nevoie de dresscode, sa iti faca sugestii dupa hainele tale sau sa te duca la h&m
+la cat mai multe petreci (sa iti apara un # gen experimentat)
+sa te intrebe aplicatia daca ai animale ca sa iti faca locuri pet friendly
+sa se verifice cat de pet friendly este zona respectiva(accepta caini mica,medii,mari,uriasi,pisici,papagali etc)
+sa poti sa vorbesti cu bartmani sau ceva 
+sa accepte multiculturalism(sa vezi ce limbi stie staff-ul ca sa stii in ce limba te intelegi cu el)
+sa poti sa ai la un party o zona de n useri(restrictionat pe cati pot sa intre->20/20)
+sa poti sa vezi cat de full este o locatie
+-> zona de llm https://chatgpt.com/s/t_697d55208918819192dc9772702abc9f
+posibilitate cu jocuri(daca te plictisesti-> sa poti juca zuma)
+sa poti vedea zonele cu bauturile tale preferate(cocktaill/vinuri/sucuri)
+-> vrei sa ai posibilitatea sa nu mai ai posibilitatea sa mai mergi cu un user la petreceri
+posibilitatea de asi faci lumea publicitate(planere)
+posibilitate de a organiza evenimente(baluri,zile de nastere, nunti)
+-> zona cum poti sa folosesti aplicatia
+-> un buton sa te intrebe in cazul in care i feel sad si el sa te intrebe diferite chestii ca sa te rezolve
+-> posibilitate de a lua pastile(farmacii)/magazine ce magazine sunt langa tine deschise-> minimarkets/hypermarkets
+-cat de safe e zona si sa ai statistici de la oameni si sa iti faca traseul pentru o zona safe
+-> card cadou pentru prieteni
+-> posibilitatea de reducere daca trimiti aplicatia la mai multi prieteni sa iti faca reducere
+-light mode si dark mode
+-mail legat de petreceri si reduceri misto
+-zona de ales artisti care iti plac si sa iti dea notificare daca canta la tine in oras/tara
+-sa asculti muzica pe recap dar doar daca ai fost la activitatea aceea 
+-in baza aplicatiei sa ai acces la anumite zone(vip)
+- sa suni prietenii cu care ai facut hangup si sa te gasesti cu ei in interiorul party-ului
+-harta ca la snapchat(friend-friend pe unde este fiecare])
+-poza/video onetime cu avertisment daca a facut ss
+-sugestii de bautura,daca iti este rau,despre droguri
+-transport sigr(woman-woman)
+-posibilitatea de raportare si de inchiderea contului aplicatiei respective (daca vine un barbat la woman for woman)
+-sfaturi cu ce sa faci dupa betie in functie de ce ai
+-zona cu reduceri la restaurante/fast-food-uri
+-ideea de petreceri friendly
+-zona de chat cu supportul si in cazul in care te simti in pericol cu autoritati
+-conversatiile intre user si ai (sa pot sa le vad)
+-script automat in cazul in care userul nu doreste sa mai aiba informatiile valabile pe stie
+-zona in care poti sa castigi diverse premii(cum era la mc de dadeai puncte si jucai mini-gameuri si puteai sa castigi in aplicatie reduceri)
+-city interface
+-Heatmaps & Crowd Control
+-“Safe Venue” Certification Program
+-Compliance & Legal Shield
+-Security Optimization AI
+-Early Warning System (prevenție, nu reacție)
+-Incident Intelligence Dashboard
+-. Venue Safety Score™ (feature vedetă)
+-Calm Mode
+Smart Safety Notifications
+-Incident Report
+-Safe Ride AI
+-Drink Safety Assistant
+-AI Risk Detection
+-Trusted 
+-City Intelligence Platform (B2G / B2B )
+-Autonomous Party Agent (nivel LUX)
+-AI Reputation Shield pentru cluburi -abonament pentru cluburi
+-Vibe Forecast (mai bun decât vremea) 
+-AI Party Recap Generator
+-AI Music Taste Evolution
+-Drink & Bar Intelligence AI
+-AI Group Dynamics Analyzer
+-Party Memory AI (profilul tău evoluează) ->După 1–2 luni:„Știu exact ce-ți place. Am ceva PERFECT pentru tine.”
+-AI Night Journey
+-amintire de x ani 
+-2fa
+-posibilitate de stergere/editare mesaje
+-adaugare conectare google,apple,nr de tel,username,email
+-aplicatie gen discord pentru pc(tablete)
+-zona de feedback
+-zona de abonamente
